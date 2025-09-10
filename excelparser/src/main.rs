@@ -122,10 +122,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut groups: HashMap<String, AnsibleGroup> = HashMap::new();
 
     for row in rows {
-        // Kolla om raden innehåller serverdata (har 'VS Code' i description)
-        if let Some(description_cell) = row.get(2) {
-            let description = description_cell.to_string();
-            if description.contains("VS Code") {
+        // Kolla om raden innehåller serverdata (Name-kolumnen inte är null eller tom)
+        if let Some(name_cell) = row.get(3) {
+            let name = name_cell.to_string();
+            if !name.trim().is_empty() && name != "Name" {
                 let host = parse_server_row(&row)?;
                 let group_name = determine_group(&host);
                 

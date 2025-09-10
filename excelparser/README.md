@@ -48,7 +48,7 @@ cargo run -- -f src/Serverbeställningxlsx.xlsx -o hosts.yml
 
 ## Excel-filstruktur
 
-Parsern förväntar sig en Excel-fil med följande struktur:
+Parsern förväntar sig en Excel-fil med följande struktur. **Viktigt**: Parsern identifierar serverrader genom att kolla om Name-kolumnen (kolumn D) inte är tom eller innehåller "Name" (header).
 
 ### Beställarinformation (B2-B5)
 - **B2**: Beställarens Namn: [Namn]
@@ -58,7 +58,7 @@ Parsern förväntar sig en Excel-fil med följande struktur:
 
 ### Serverdata (från rad 8)
 - **Kolumn C**: Description
-- **Kolumn D**: Name (hostname)
+- **Kolumn D**: Name (hostname) - *Används för att identifiera serverrader*
 - **Kolumn E**: Cluster
 - **Kolumn G**: Domain
 - **Kolumn I**: Template
