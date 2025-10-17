@@ -1,0 +1,24 @@
+# Rust build artifacts
+/target/
+**/*.rlib
+**/*.rs.bk
+
+# Logs
+*.log
+
+# Editor/IDE
+.vscode/
+.idea/
+*.code-workspace
+.cursor/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Merge/backup noise
+*.orig
+*.bak
+
+
+
