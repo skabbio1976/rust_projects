@@ -1,0 +1,32 @@
+{
+  "python_path": "python3",
+  "python_env": "./python-env",
+  "powershell_path": "pwsh",
+  "scripts": [
+    {
+      "name": "deploy-servers",
+      "type": "python",
+      "script_path": "./team-scripts/deploy_servers.py",
+      "python_deps": ["ansible", "pyvmomi"],
+      "args": [],
+      "working_dir": "./"
+    },
+    {
+      "name": "validate-inventory",
+      "type": "python",
+      "script_path": "./team-scripts/validate_inventory.py",
+      "python_deps": ["pyyaml"],
+      "args": [],
+      "working_dir": "./"
+    },
+    {
+      "name": "generate-report",
+      "type": "powershell",
+      "script_path": "./team-scripts/Generate-Report.ps1",
+      "ps_modules": ["ImportExcel"],
+      "args": [],
+      "working_dir": "./"
+    }
+  ]
+}
+
