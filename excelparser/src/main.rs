@@ -59,9 +59,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let output_path = matches.get_one::<String>("output").map_or_else(
         || {
             let timestamp = Local::now().format("%Y%m%d%H%M").to_string();
-            PathBuf::from(format!("{}_serverbeställning.yml", timestamp))
+            PathBuf::from(format!("{timestamp}_serverbeställning.yml"))
         },
-        |s| PathBuf::from(s),
+        PathBuf::from,
     );
 
     let mut workbook = open_workbook_auto(xlsx_path)?;
@@ -126,7 +126,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         if let Some(name_cell) = row.get(3) {
             let name = name_cell.to_string();
             if !name.trim().is_empty() && name != "Name" {
-                let host = parse_server_row(&row)?;
+                let host = parse_server_row(row)?;
                 let group_name = determine_group(&host);
                 
                 groups.entry(group_name.clone()).or_insert(AnsibleGroup {
@@ -159,7 +159,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         file.write_all(yaml.as_bytes())?;
         println!("✅ YAML skapad!");
     } else {
-        println!("{}", yaml);
+        println!("{yaml}");
     }
 
     Ok(())

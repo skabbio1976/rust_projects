@@ -103,13 +103,36 @@ all:
 
 ## Användning med Ansible
 
+### Komplett Deployment Workflow
+
+**Steg 1:** Konvertera Excel till YAML
+```bash
+cargo run --release -- -f Serverbeställning.xlsx -o inventory.yml
+```
+
+**Steg 2:** Deploya servrar i vCenter
+```bash
+ansible-playbook -i inventory.yml deploy-servers.yml \
+  -e vcenter_hostname=vcenter.company.local \
+  -e vcenter_username=admin@vsphere.local \
+  -e vcenter_password=YourPassword
+```
+
+**Det är allt!** Servrarna deployas automatiskt med:
+- ✅ Korrekt specs (vCPU, minne, diskar)
+- ✅ Nätverkskonfiguration (IP, VLAN, gateway, DNS)
+- ✅ Domain join (om angivet)
+- ✅ Beställarinformation i vCenter annotations
+
+Se `DEPLOYMENT_GUIDE.md` och `QUICKSTART.md` för detaljerad dokumentation.
+
 ### Grundläggande användning
 ```bash
 # Använd den genererade inventory-filen
-ansible-playbook -i hosts.yml playbook.yml
+ansible-playbook -i inventory.yml deploy-servers.yml
 
 # Kör mot specifik grupp
-ansible-playbook -i hosts.yml playbook.yml --limit lab
+ansible-playbook -i inventory.yml deploy-servers.yml --limit lab
 ```
 
 ### Exempel på Ansible-playbook
